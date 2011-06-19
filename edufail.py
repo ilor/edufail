@@ -6,7 +6,7 @@ import codecs
 if sys.stdout.encoding != 'UTF-8':
     sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
 
-from grabber import get_all
+from edufail.grabber import get_all
 
 try:
     from settings import LOGIN, PASSWORD
