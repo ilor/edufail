@@ -1,5 +1,6 @@
 from lxml import etree
 from itertools import izip
+import itertools as it
 from StringIO import StringIO
 
 def four_iter(iterable):
@@ -11,24 +12,27 @@ def parse_index(index):
     parser = etree.HTMLParser()
     tree = etree.parse(StringIO(index), parser)
 
-    cute_table = tree.findall("//table[@class='KOLOROWA']")[1]
+    tt = tree.xpath('//a[starts-with(@name, "hrefListaKursowTabela")]/parent::node()/parent::table')[0]
 
+    sems = tt.xpath("child::node()[(position() + 3) mod 4 = 0]/td[2]/text()")
     res = []
-    for a, b, c, d in four_iter(cute_table.getchildren()):
-        sem = a.getchildren()[2].text.strip()
+    for sem, count in it.izip(sems, it.count(1)):
+        sem = sem.strip()
 
         ret_cours = []
-        courses = d.getchildren()[0].getchildren()[0].getchildren()
-        for c in courses[1:]:
-            link_node = c.getchildren()[0].getchildren()[0]
-            code = link_node.text.strip()
-            link = link_node.get("href")
-            name =  c.getchildren()[1].text.strip()
-            form = c.getchildren()[2].text.strip()
-            ecst = c.getchildren()[3].text.strip()
-            results = c.getchildren()[4].text.strip()
-            ret_cours.append((code, name, form, ecst, results, link))
+        courses = tt.xpath("child::node()[position() mod 4 = 0][$sem]/td/table/*[position() > 1]/td[position() > 1]/text()", sem=count)
+        codes = tt.xpath("child::node()[position() mod 4 = 0][$sem]/td/table/*[position() > 1]/td[position() = 1]/a/text()", sem=count)
+        urls = tt.xpath("child::node()[position() mod 4 = 0][$sem]/td/table/*[position() > 1]/td[position() = 1]/a/@href", sem=count)
+        for (a, b, c, d), code, url in it.izip(four_iter(courses), codes, urls):
+            name = a.strip()
+            form = b.strip()
+            ecst = c.strip()
+            grade = d.strip()
+            code = code.strip()
+
+            ret_cours.append((code, name, form, ecst, grade, url))
         res.append((sem, ret_cours))
+        
     return res
 
 def parse_course(html):
