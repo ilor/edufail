@@ -1,8 +1,9 @@
 import urllib, urllib2
 import re
-import time
+import time, sys
 from parser import *
-
+import random
+import itertools as it
 
 _main_url = "https://edukacja.pwr.wroc.pl"
 
@@ -40,14 +41,30 @@ def get_all(login, password):
 
     parsed_index = parse_index(index.read())
     to_return = []
+
+    get_count = sum([len(x[1]) for x in parsed_index])
+    proc_count = 0
+    print "Starting download of the course informations ..."
     for sem, cours in parsed_index:
     	course_infos = []
         for c in cours:
-            html_cours = urllib2.urlopen(_main_url + c[5])
+            down_ok = False
+            while not down_ok:
+                try:
+                    html_cours = urllib2.urlopen(_main_url + c[5])
+                    down_ok = True
+                except urllib2.URLError, e:
+                    print "Download error:", e.reason, "retrying in 1 second ..."
+                    time.sleep(1)
+
             course_details = parse_course(html_cours.read())
 
             entry = CourseEntry(c[0], c[1], c[2], c[4], c[3], course_details[0], course_details[1], course_details[2], course_details[3])
             course_infos.append(entry)
-            time.sleep(1)
+            cool_random = random.randrange(20) / 100.0
+            time.sleep(cool_random)
+            proc_count += 1
+            sys.stdout.write("\r%d / %d" % (proc_count, get_count))
+            sys.stdout.flush()
         to_return.append((sem, course_infos))
     return to_return
