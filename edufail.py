@@ -1,19 +1,23 @@
 import urllib, urllib2
 import re
 import time
+import sys
+import codecs
+if sys.stdout.encoding != 'UTF-8':
+    sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
 from parser import *
+try:
+    from settings import LOGIN,PASSWORD,MAIN_URL
+except ImportError:
+    print "No settings, did you cp?"
+    raise
 
-LOGIN=""
-PASSWORD=""
-
-main_url = "https://edukacja.pwr.wroc.pl/EdukacjaWeb/studia.do"
-
+print "Will login with %s:%s" % (LOGIN, '*' * len(PASSWORD))
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
 urllib2.install_opener(opener)
-main = urllib2.urlopen(main_url)
+main = urllib2.urlopen(MAIN_URL)
 
 toks = re.findall('<input type="hidden".*?name="(.*?)".*?value="(.*?)">', main.read())
-
 data = urllib.urlencode({"login":LOGIN, "password":PASSWORD[:20], toks[0][0]:toks[0][1], toks[1][0]:toks[1][1]})
 log = urllib2.urlopen("https://edukacja.pwr.wroc.pl/EdukacjaWeb/logInUser.do", data=data)
 
