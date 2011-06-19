@@ -1,0 +1,156 @@
+\documentclass[10pt]{report}
+\usepackage[MeX]{polski}
+% kodowanie: latin2, utf8 lub cp1250
+\usepackage[a4paper,landscape]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{multirow}
+
+\pagestyle{empty}
+%jezu jakie chamskie
+\geometry{top=1.0cm, bottom=1.0cm, left=1.0cm, right=1.0cm}
+%pierdolony w dupe rtf
+
+
+\begin{document}
+\begin{minipage}[b]{0.2\linewidth}
+\small{\underline{POLITECHNIKA WROCŁAWSKA}}
+\newline
+\centering{\footnotesize{nazwa szkoły}}
+\end{minipage}
+\begin{minipage}[b]{0.79\linewidth}
+\huge{\textbf{Wypis z indeksu za rok akademicki %@academicYear@
+}}
+\large{\textbf{Nr indeksu %@indexNumber@
+}}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}[b]{0.5\linewidth}
+\begin{normalsize}
+Wydział \textbf{INFORMATYKI I ZARZĄDZANIA}
+
+1. Imię %@name@
+
+2. Nazwisko %@lastName@
+
+3. Data i miejsce urodzenia %@birth@
+
+4. Adres miejscowy studenta %@localAddress@
+
+5. Imiona rodziców i ich zatrudnienie %@parents@
+
+6. Adres rodziców %@parentsAddres@
+\end{normalsize}
+\end{minipage}
+\hspace{0.04\linewidth}
+\begin{minipage}[b]{0.45\linewidth}
+\begin{normalsize}
+7.  Stosunek do powszechnego obowiązku wojskowego
+
+  -- przezn. do rezerwy
+  
+  -- stopień wojskowy %@milRank@
+  
+  -- numer specjalności wojskowej %@milSpec@
+  
+  -- przynależność ewidencyjna %@milEvid@
+
+  -- Woj. Kom. Rej. w %@wkr@
+
+8. Gdzie student uczył się w ub. roku szkolnym %@lastSchool@
+
+9. Telefon kontaktowy %@phone@
+
+\end{normalsize}
+\end{minipage}
+
+\vspace{2cm}
+
+%ULEASH THE MUTHERFUCKING TABELKA
+\centering{\Large{\textbf{Wypis z indeksu za rok akademicki %@academicYear@
+}}}
+\footnotesize
+\begin{longtable}{
+|p{3.5cm}|p{3.5cm}|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline 
+\multirow{3}{3.5cm}{
+\centering{ Nazwisko \linebreak wykładającego }} & 
+\multirow{3}{3.5cm}{
+\centering{ Rodzaj zajęcia \linebreak
+i nazwa przedmiotu \linebreak
+ \linebreak
+KOD KURSU }} & 
+
+\multicolumn{7}{|c|}{Semestr zimowy} & 
+\multicolumn{7}{|c|}{Semestr letni} \\ 
+
+\cline{3-16}
+ & 
+ &  
+\multicolumn{2}{|p{2cm}|}{\centering Liczba godz. tyg.} & 
+\multicolumn{2}{|c|}{Zaliczenie} & 
+\multicolumn{2}{|c|}{Egzamin} & 
+\multirow{2}{1.5cm}{\centering Punkty \newline \newline ECTS} & 
+\multicolumn{2}{|p{2cm}|}{\centering Liczba godz. tyg.} & 
+\multicolumn{2}{|c|}{Zaliczenie} & 
+\multicolumn{2}{|c|}{Egzamin} & 
+\multirow{2}{1.5cm}{\centering Punkty \newline \newline ECTS} \\ 
+
+\cline{3-8} \cline{10-15}
+ & 
+ & 
+\parbox{1cm}{\centering w} & 
+\parbox{1cm}{\centering c} & 
+ocena & 
+data & 
+ocena & 
+data & 
+ & 
+\parbox{1cm}{\centering w} & 
+\parbox{1cm}{\centering c} & 
+ocena &
+data & 
+ocena & 
+data & 
+ \\ 
+\hline  & \centering{2} & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\ 
+\endhead
+%\hline & & & & & & & & & & & & & & & \\
+%@grades@
+\hline 
+\end{longtable} 
+%uff
+
+%FOOTER
+
+\begin{figure}[b]
+\begin{minipage}[b]{0.30\linewidth}
+\centering
+\line(1,0){150}
+
+
+{\footnotesize Własnoręczny podpis studenta}
+\end{minipage}
+\begin{minipage}[b]{0.30\linewidth}
+\centering
+{\normalsize WROCŁAW, dnia \today}
+\end{minipage}
+\begin{minipage}[b]{0.30\linewidth}
+\begin{center}
+\begin{normalsize}
+Zgodność powyższych danych ze 
+stanem faktycznym stwierdzam
+\end{normalsize}
+\vspace{1.0cm}
+
+\line(1,0){150}
+
+{\footnotesize Kierownik Administracyjny Wydziału}
+\end{center}
+\end{minipage}
+\end{figure}
+
+\end{document}
