@@ -1,0 +1,37 @@
+#generuje pliki tex z wypisem jeden per rok akademicki
+#pliki trzeba potem dwa razy przejechac latexem
+generate(personalData, highSchool, grades)
+
+
+#dane osobowe
+personalData = {
+    '%@indexNumber@' : "157636",
+    '%@name@' : "Maciej",
+    '%@lastName@' : "Paw³owski",
+    '%@birth@' : "1987-09-07 Zielona Góra",
+    '%@localAddress@' : "adres bleble",
+    '%@parents@' : "Jacek, Wies³awa, Wynagrodzenie z tytu³u umowy o pracê",
+    '%@parentsAddres@' : "adres blabla",
+    '%@milRank@' : "",
+    '%@milSpec@' : "",
+    '%@milEvid@' : "wtf",
+    '%@wkr@' : "Zielona Góra",
+    '%@phone@' : ""
+    }
+#wszystko czego nie znajdziesz na edu w Dane osobowe zostaw puste, ex. %@milSpec@ jak wyzej
+
+highSchool = nazwa szko³y do której chodzi³ student przed pwr, w Danych osobowych na edufail
+
+
+grades = { '2007/2008' : [Wpis, Wpis, Wpis...],
+'2008/2009' : [Wpis, Wpis, Wpis...],
+...
+}
+
+
+Wpis := [wykladajacy, nazwa i kod kursu, godziny W, godziny C, zaliczenie Ocena, zaliczenie Data...] 
+#pola w kolejnosci identycznie jak kolumny w tabelce
+
+#dla semestru zimowego pola 2-8 wypelnione, 9-15 puste
+#dla semestru letniego pola 2-8 puste, 9-15 wypelnione, wszystko zgodnie z tabelka
+Wpis := [wykladajacy, nazwa i kod kursu, '', '', '', '', ... , godziny W, godziny C, ...]
