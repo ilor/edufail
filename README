@@ -1,0 +1,4 @@
+1. cp settings.py.example settings.py
+2. adjust LOGIN and PASSWORD in settings.py
+3. ???
+4. profit
