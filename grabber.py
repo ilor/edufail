@@ -24,6 +24,9 @@ class CourseEntry:
     def __str__(self):
         return unicode(self).encode("utf8")
 
+    def __repr__(self):
+        return "<" + str(self) + ">"
+
 def get_all(login, password):
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
     urllib2.install_opener(opener)
@@ -38,11 +41,13 @@ def get_all(login, password):
     parsed_index = parse_index(index.read())
     to_return = []
     for sem, cours in parsed_index:
+    	course_infos = []
         for c in cours:
             html_cours = urllib2.urlopen(_main_url + c[5])
             course_details = parse_course(html_cours.read())
 
             entry = CourseEntry(c[0], c[1], c[2], c[4], c[3], course_details[0], course_details[1], course_details[2], course_details[3])
-            to_return.append((sem, entry))
-            time.sleep(5)
+            course_infos.append(entry)
+            time.sleep(1)
+        to_return.append((sem, course_infos))
     return to_return
