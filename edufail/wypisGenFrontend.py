@@ -29,9 +29,9 @@ personalData = {
 highSchoolName = "Moje liceum"
 
 def readGrades(login, password):
-    dumpFile = open('grades.dmp')
-    grabberOutput = pickle.load(dumpFile)
-    #grabberOutput = get_all(login, password)
+    #dumpFile = open('grades.dmp')
+    #grabberOutput = pickle.load(dumpFile)
+    grabberOutput = get_all(login, password)
     grades = dict()
     average = 0;
     totalEcts = 0;
