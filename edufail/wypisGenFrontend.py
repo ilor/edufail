@@ -29,10 +29,13 @@ personalData = {
 highSchoolName = "Moje liceum"
 
 def readGrades(login, password):
-    #dumpFile = open('grades.dmp')
-    #grabberOutput = pickle.load(dumpFile)
-    grabberOutput = get_all(login, password)
+    dumpFile = open('grades.dmp')
+    grabberOutput = pickle.load(dumpFile)
+    #grabberOutput = get_all(login, password)
     grades = dict()
+    average = 0;
+    totalEcts = 0;
+    totalHours = 0;
     for period, courses in grabberOutput.iteritems():
         (year, _, semester) = period.partition(' ')
         print "Got courses for: "+year
@@ -43,6 +46,9 @@ def readGrades(login, password):
 
             if course.hours == '':
                 course.hours = "0"
+            totalHours += int(course.hours)
+            average += float(course.grade) * int(course.ects)
+            totalEcts += int(course.ects)
             hoursWeekly = str(int(course.hours)/15)
             courseDescription = [course.teacher,
                          course.name+" "+course.code]
@@ -69,13 +75,13 @@ def readGrades(login, password):
                 entry = courseDescription + filler + grading
                 print "Summer course: " + str(entry)
                 grades[year].append(entry) #kurs letni idzie na koniec listy
-                
-    return grades
+    average = average / totalEcts
+    return grades, average, totalHours
 
 
 def generateAll(login, password):
-    grades = readGrades(login, password)
+    grades, average, hours = readGrades(login, password)
     #personalData and highschool name are temporarily globals filled above
     #TODO read from edu
-    generate(personalData, highSchoolName, grades, "4.0", "3600")
+    generate(personalData, highSchoolName, grades, str(round(average, 2)), str(hours))
 
