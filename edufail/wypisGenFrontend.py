@@ -46,6 +46,8 @@ def readGrades(login, password):
 
             if course.hours == '':
                 course.hours = "0"
+            if course.grade =='';
+                course.grade = '0'
             totalHours += int(course.hours)
             average += float(course.grade) * int(course.ects)
             totalEcts += int(course.ects)
