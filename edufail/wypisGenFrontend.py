@@ -83,5 +83,5 @@ def generateAll(login, password):
     grades, average, hours = readGrades(login, password)
     #personalData and highschool name are temporarily globals filled above
     #TODO read from edu
-    generate(personalData, highSchoolName, grades, str(round(average, 2)), str(hours))
+    generate(personalData, highSchoolName, grades, str(round(average, 2)), str(max(3600, hours)))
 
