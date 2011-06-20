@@ -8,12 +8,12 @@ import itertools as it
 _main_url = "https://edukacja.pwr.wroc.pl"
 
 class CourseEntry:
-    def __init__(self, code, name, course_type, grade, ecst, teacher, hours, form, grade_date):
+    def __init__(self, code, name, course_type, grade, ects, teacher, hours, form, grade_date):
         self.code = code
         self.name = name
         self.course_type = course_type
         self.grade = grade
-        self.ecst = ecst
+        self.ects = ects
         self.teacher = teacher
         self.hours = hours
         self.form = form
@@ -25,8 +25,8 @@ class CourseEntry:
     def __str__(self):
         return unicode(self).encode("utf8")
 
-    def __repr__(self):
-        return "<" + str(self) + ">"
+    #def __repr__(self):
+    #    return "<" + str(self) + ">"
 
 def get_all(login, password):
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
@@ -40,7 +40,7 @@ def get_all(login, password):
     index = urllib2.urlopen(_main_url + "/EdukacjaWeb/indeks.do?clEduWebSESSIONTOKEN=" + toks[0][1] + "&event=WyborSluchacza")
 
     parsed_index = parse_index(index.read())
-    to_return = []
+    to_return = dict()
 
     get_count = sum([len(x[1]) for x in parsed_index])
     proc_count = 0
@@ -66,5 +66,5 @@ def get_all(login, password):
             proc_count += 1
             sys.stdout.write("\r%d / %d" % (proc_count, get_count))
             sys.stdout.flush()
-        to_return.append((sem, course_infos))
+        to_return[sem] = course_infos
     return to_return

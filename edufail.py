@@ -7,6 +7,7 @@ if sys.stdout.encoding != 'UTF-8':
     sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
 
 from edufail.grabber import get_all
+from edufail.wypisGenFrontend import generateAll
 
 try:
     from settings import LOGIN, PASSWORD
@@ -15,6 +16,9 @@ except ImportError:
     raise
 
 print "Will login with %s:%s" % (LOGIN, '*' * len(PASSWORD))
-print get_all(LOGIN, PASSWORD)
+
+#print get_all(LOGIN, PASSWORD)
+generateAll(LOGIN, PASSWORD)
+
 
 
