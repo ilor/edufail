@@ -1,4 +1,38 @@
+edufail robi co nastepuje:
+1. Pobiera oceny z edukacji
+2. Bierze dane studenta z pliczku personalData.py, bo nie umie jeszcze z edukacji ;p
+3. Sklada to do kupy i generuje sliczne wypisy w latexu, zrobione tak, zeby wygladaly podobnie do tego rtfa 
+Jak ktos sie bedzie czepial, ze kolumna w tabelce jest o pol milimetra za waska, to "moj libreoffice tak drukuje" 
+4. Generowany jest jeden wypis per rok, na ostatnim jest wpisana srednia i odpowiednia liczba godzin.
+Jak wychodzi mniej niz 3600 godzin, to wpisuje 3600, zgodnie z polityka dziekanatu
+
+
+Zaleznosci:
+latex, pdflatex
+    extra packages: longtable i multirow
+
+python 2.x
+    lxml (http://lxml.de/installation.html)
+
 1. cp settings.py.example settings.py
 2. adjust LOGIN and PASSWORD in settings.py
-3. ???
-4. profit
+3. enter personal data in edufail/personalData.py 
+    (temporary until edufail learns to extract them from edukacja)
+4. python edufail.py
+
+Sciaganie danych o kursach trwa nawet 2-3 minuty, sa sleepy w kodzie
+zeby nie zrobic przypadkiem DOSa :p
+
+Problemy:
+- Kursy W+C (np. wstep na pierwszym roku, architektura komputerow 1) maja zle wypelniane godziny
+bo w edukacji nie ma informacji o podziale godzin na wyklady i cwiczenia ;p
+Trzeba recznie dopisac do wygenerowanych plikow .tex na podstawie indeksu, domyslisz sie gdzie.
+
+- Edukacja chyba nie pamieta nazwisk prowadzacych w pierwszych semestrach, tez trzeba dopisac recznie w .texach
+i przejechac pdflatexem (dla pewnosci dwa razy :3)
+
+- Cholera wie co sie dzieje jak ktos ma cuda wianki ze zmienianiem kierunkow, przepisywaniem ocen itd.
+
+- Srednia jest wyliczana ze wszystkich kursow na liscie, z pominieciem uwalonych (te w ogole nie trafiaja
+do wygenerowanych pdfow), a nie tylko z "przewidzianych programem nauczania". Jak cos, to tradycyjnie
+wyedytowac recznie w pliku .tex z ostatniego roku akademickiego

@@ -2,16 +2,9 @@
 from grabber import get_all
 from wypisGen import generate
 
-import sys
-import codecs
-if sys.stdout.encoding != 'UTF-8':
-    sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
-
 import pickle #temp
 
 from personalData import personalData, highSchoolName
-
-#PRZYKLAD, TODO REMOVE
 
 def readGrades(login, password):
     #dumpFile = open('grades.dmp')
