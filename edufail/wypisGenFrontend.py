@@ -6,16 +6,17 @@ import sys
 import codecs
 if sys.stdout.encoding != 'UTF-8':
     sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
-#temp
-import pickle
+
+import pickle #temp
+
 from personalData import personalData, highSchoolName
 
 #PRZYKLAD, TODO REMOVE
 
 def readGrades(login, password):
-    dumpFile = open('grades.dmp')
-    grabberOutput = pickle.load(dumpFile)
-    #grabberOutput = get_all(login, password)
+    #dumpFile = open('grades.dmp')
+    #grabberOutput = pickle.load(dumpFile)
+    grabberOutput = get_all(login, password)
     grades = dict()
     average = 0;
     totalEcts = 0;
