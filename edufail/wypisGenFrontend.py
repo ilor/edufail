@@ -8,30 +8,14 @@ if sys.stdout.encoding != 'UTF-8':
     sys.stdout = codecs.getwriter('UTF-8')(sys.stdout)
 #temp
 import pickle
-
+from personalData import personalData, highSchoolName
 
 #PRZYKLAD, TODO REMOVE
-personalData = {
-    '%@indexNumber@' : "157636",
-    '%@name@' : "Maciej".decode("utf8"),
-    '%@lastName@' : "Pawłowski".decode("utf8"),
-    '%@birth@' : "1987-09-07 Zielona Góra".decode("utf8"),
-    '%@localAddress@' : "adres bleble",
-    '%@parents@' : "Jacek, Wiesława, Wynagrodzenie z tytułu umowy o pracę".decode("utf8"),
-    '%@parentsAddres@' : "adres blabla",
-    '%@milRank@' : "",
-    '%@milSpec@' : "",
-    '%@milEvid@' : "wtf",
-    '%@wkr@' : "Zielona Góra".decode("utf8"),
-    '%@phone@' : ""
-    }
-
-highSchoolName = "Moje liceum"
 
 def readGrades(login, password):
-    #dumpFile = open('grades.dmp')
-    #grabberOutput = pickle.load(dumpFile)
-    grabberOutput = get_all(login, password)
+    dumpFile = open('grades.dmp')
+    grabberOutput = pickle.load(dumpFile)
+    #grabberOutput = get_all(login, password)
     grades = dict()
     average = 0;
     totalEcts = 0;
@@ -46,7 +30,7 @@ def readGrades(login, password):
 
             if course.hours == '':
                 course.hours = "0"
-            if course.grade =='';
+            if course.grade =='':
                 course.grade = '0'
             totalHours += int(course.hours)
             average += float(course.grade) * int(course.ects)
