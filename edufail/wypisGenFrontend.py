@@ -6,7 +6,7 @@ import pickle #temp
 
 from personalData import personalData, highSchoolName
 
-def readGrades(login, password):
+def readGrades(login, password, add_ects, add_score):
     #dumpFile = open('grades.dmp')
     #grabberOutput = pickle.load(dumpFile)
     grabberOutput = get_all(login, password)
@@ -55,12 +55,14 @@ def readGrades(login, password):
                 entry = courseDescription + filler + grading
                 print "Summer course: " + str(entry)
                 grades[year].append(entry) #kurs letni idzie na koniec listy
+    average += add_score
+    totalEcts += add_ects
     average = average / totalEcts
     return grades, average, totalHours
 
 
-def generateAll(login, password):
-    grades, average, hours = readGrades(login, password)
+def generateAll(login, password, options = {}):
+    grades, average, hours = readGrades(login, password, options.add_ects, options.add_score)
     #personalData and highschool name are temporarily globals filled above
     #TODO read from edu
     generate(personalData, highSchoolName, grades, str(round(average, 2)), str(max(3600, hours)))
